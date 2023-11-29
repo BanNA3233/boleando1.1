@@ -24,7 +24,7 @@ class Pontos(db.Model):
     pontos = db.Column (db.String(80), nullable=False)
     data_compra = db.Column (db.DateTime)
     status = db.Column (db.String(80), nullable=True)
-    link = db.column (db.String(80), nullable=False)
+    link = db.column (db.String(80))
 
 class Users(db.Model):
     id = db.Column (db.Integer, primary_key=True)
