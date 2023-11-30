@@ -24,7 +24,7 @@ class Pontos(db.Model):
     pontos = db.Column (db.String(80), nullable=False)
     data_compra = db.Column (db.DateTime)
     status = db.Column (db.String(80), nullable=True)
-    link = db.column (db.String(80))
+    link = db.Column (db.String(80))
 
 class Users(db.Model):
     id = db.Column (db.Integer, primary_key=True)
@@ -346,25 +346,25 @@ def criar_jogos():
 @app.route('/jogo/<int:id_jogo>')
 def jogo(id_jogo):
     
-    # Use o jogo_id para recuperar informações sobre o jogo do banco de dados
-    game = Criarjogos.query.get(id_jogo)
+    # Use o id_jogo para recuperar informações sobre o jogo do banco de dados
+    jogo = Criarjogos.query.get(id_jogo)
 
-    if game.status == "fechado":
-        return "jogo ja foi encerrado"
+    if jogo.status == "fechado":
+        return "jogo já foi encerrado"
     else:
         if 'id' in session:
             user_id = session['id']
             usuario = Users.query.filter_by(id=user_id).first()
-            if user_id == game.id_criador:
-                return render_template('pagina_jogo_criador.html', jogo=game, usuario=usuario)
+            if user_id == jogo.id_criador:
+                return render_template('pagina_jogo_criador.html', jogo=jogo, usuario=usuario)
             else:
-
                 if jogo is None:
                     # Trate o caso em que o jogo não existe
                     return "Jogo não encontrado", 404
 
                 # Renderize uma página HTML com informações sobre o jogo
-                return render_template('pagina_jogo.html', jogo=game)
+                return render_template('pagina_jogo.html', jogo=jogo)
+
 
 @app.route('/jogar', methods=['GET', 'POST'])
 def jogar():
