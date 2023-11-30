@@ -29,7 +29,7 @@ class Pontos(db.Model):
 class Users(db.Model):
     id = db.Column (db.Integer, primary_key=True)
     id_assas = db.Column (db.String(80), unique=True, nullable=False)
-    nome = db.Column (db.String(80), unique=True, nullable=False)
+    nome = db.Column (db.String(80), nullable=False)
     cpf = db.Column (db.String(80), unique=True, nullable=False)
     email = db.Column (db.String(80), unique=True, nullable=False)
     endereco = db.Column (db.String(80), nullable=False) 
@@ -120,7 +120,7 @@ def registro():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        cpf_or_email = request.form['cpf']
+        cpf_or_email = request.form['email']
         senha = request.form['senha']
         
         usuario = Users.query.filter((Users.email == cpf_or_email) | (Users.cpf == cpf_or_email)).first()
