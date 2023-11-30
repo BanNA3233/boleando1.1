@@ -19,7 +19,7 @@ class Pontos(db.Model):
     __tablename__ = 'pontos'
     id = db.Column (db.Integer, primary_key=True)
     id_pay = db.Column (db.String(80), unique=True, nullable=False)
-    id_assas = db.Column (db.String(80), unique=True, nullable=False)
+    id_assas = db.Column (db.String(80), nullable=False)
     id_jogador = db.Column (db.String(80), nullable=False)
     pontos = db.Column (db.String(80), nullable=False)
     data_compra = db.Column (db.DateTime)
@@ -209,7 +209,8 @@ def comprarPontos():
                 pix = asaas.criarpix(cliente_id=cliente_id)
                 print(pix[1])
                 pay = str(pix[1])
-                by_history = Pontos(id_pay=pay ,id_assas=usuario.id_assas, id_jogador=user_id, pontos=pontos, data_compra=data_compra, status="pendente", link=pix[0])
+                linkp = pix[0]
+                by_history = Pontos(id_pay=pay ,id_assas=usuario.id_assas, id_jogador=user_id, pontos=pontos, data_compra=data_compra, status="pendente", link=linkp)
                 db.session.add(by_history)
                 
                 db.session.commit()
