@@ -34,7 +34,7 @@ class Users(db.Model):
     email = db.Column (db.String(80), unique=True, nullable=False)
     endereco = db.Column (db.String(80), nullable=False) 
     senha = db.Column(db.String(4096), nullable=False)
-    pontos = db.Column (db.String(80), nullable=False)
+    pontos = db.Column (db.Float(), nullable=False)
     
 class Criarjogos (db.Model):
     id_jogo = db.Column (db.Integer, primary_key=True)
