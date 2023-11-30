@@ -9,37 +9,6 @@
 </head>
 <body>
 
-<header class="bg-success">
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="/">Seu Logotipo</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/historicoap">Apostas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/historicocompra">Historico de compra</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/historicojg">Jogos que eu criei</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/perfil">Perfil</a>
-                    </li>
-                </ul>
-            </div>
-            <a href="/criarjogo" id="btn" class="btn btn-primary ml-2">Criar Bolão</a>
-            <a class="compra" href="/comprarpontos">
-                <h1 id="pt">R$ {{usuario.pontos}}</h1>
-            </a>
-        </div>
-    </nav>
-</header>
     <main>
     <div class="container mt-5" style="height: 100%;">
         <div class="row justify-content-center">
@@ -65,37 +34,231 @@
     </main>
     
     <!-- Inclua o Bootstrap JavaScript (opcional, se necessário) -->
-    <footer class="bg-dark text-white py-3">
-        <div class="container">
-            <div class="row">
-                <!-- Menu Vertical -->
-                <div class="col-md-4">
-                    <h5>Menu</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="/historicoap" class="text-white">Apostas</a></li>
-                        <li><a href="/historicocompra" class="text-white">Historico de compra</a></li>
-                        <li><a href="/historicojg" class="text-white">Jogos que eu criei</a></li>
-                        <li><a href="/perfil" class="text-white">Perfil</a></li>
-                    </ul>
-                </div>
+    <style>
+        /* ------------ VARIABLES ------------ */
+    :root{
+    /* COLORS */
+    --tab-color: #191919;
+    --white-color: #fff;
+    --home-icon-color: #ff1e00;
+    --heart-icon-color: #f54848;
+    --plus-icon-color: rgb(228, 90, 36);
+    --user-icon-color: rgb(237, 240, 47);
+    --bell-icon-color: #3cff00;
     
-                <!-- Informações da Empresa -->
-                <div class="col-md-4">
-                    <h5>Dados Da Empresa</h5>
-                    <p>Empresa XYZ<br>
-                        CNPJ: 123.456.789/0001-00<br>
-                        Contato: contato@empresa.com</p>
-                </div>
+    }
+    /* Adicione a nova classe de animação */
+    .nav__link.active a .bx-home-alt-2,
+    .nav__link.active a .bx-heart,
+    .nav__link.active a .bx-plus-circle,
+    .nav__link.active a .bx-user,
+    .nav__link.active a .bx-bell {
+        animation: icon-animation 1s infinite; /* Adicione a animação desejada */
+    }
+
+    @keyframes icon-animation {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+    }
     
-                <!-- Botão Flutuante do WhatsApp -->
-                <div class="col-md-4 text-right">
-                    <a href="https://api.whatsapp.com/send?phone=SEUNUMERODOTELEFONE" target="_blank" class="btn btn-success btn-lg">
-                        <i class="fab fa-whatsapp"></i> Fale Conosco
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    /* ------------ BASE ------------ */
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    }
+    
+    body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    }
+    
+    li{
+    display: inline-block;
+    }
+    
+    /* ------------ MENU ------------ */
+    .nav{
+    background-color: var(--tab-color);
+    width: 100vw;
+    height: 10%;
+    border-radius: 1px;
+    padding: 0 2em;
+    top: 90vh;
+    box-shadow: 0 1em 1em rgba(0,0,0, .2);
+    
+    display: flex;
+    align-items: center;
+    
+    position: fixed;
+    overflow: hidden;
+    }
+    
+    .nav__links{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    }
+    
+    .nav__link a{
+    color: var(--white-color);
+    font-size: 2.5rem;
+    opacity: 0.5;
+    }
+    
+    .nav__light{
+    position: absolute;
+    top: 0;
+    left: 1.3em;
+    background-color: var(--white-color);
+    width: 4em;
+    height: .4em;
+    border-radius: 2px;
+    
+    display: flex;
+    justify-content: center;
+    
+    transition: .3s ease;
+    }
+    
+    .nav__light::before{
+    content: '';
+    width: 5em;
+    height: 7em;
+    position: absolute;
+    top: .4em;
+    background: linear-gradient(to bottom, rgba(255,255,255, .3) -50%, rgba(255,255,255, 0) 90%);
+    clip-path: polygon(30% 0, 70% 0, 100% 100%, 0% 100%);
+    }
+    
+    
+    .nav__link.active a{
+    opacity: 1;
+    }
+    
+    .nav__link.active a .bx-home-alt-2{
+    color: var(--home-icon-color);
+    text-shadow: 0 0 15px var(--home-icon-color),
+                0 0 30px var(--home-icon-color),
+                0 0 45px var(--home-icon-color),
+                0 0 60px var(--home-icon-color);
+    }
+    
+    .nav__link:nth-child(1).active ~ .nav__light{
+    background-color: var(--home-icon-color);
+    }
+    
+    
+    .nav__link.active a .bx-heart{
+    color: var(--heart-icon-color);
+    text-shadow: 0 0 15px var(--heart-icon-color),
+                0 0 30px var(--heart-icon-color),
+                0 0 45px var(--heart-icon-color),
+                0 0 60px var(--heart-icon-color);
+    }
+    
+    .nav__link:nth-child(2).active ~ .nav__light{
+    background-color: var(--heart-icon-color);
+    }
+    
+    
+    .nav__link.active a .bx-plus-circle{
+    color: var(--plus-icon-color);
+    text-shadow: 0 0 15px var(--plus-icon-color),
+                0 0 30px var(--plus-icon-color),
+                0 0 45px var(--plus-icon-color),
+                0 0 60px var(--plus-icon-color);
+    }
+    
+    .nav__link:nth-child(3).active ~ .nav__light{
+    background-color: var(--plus-icon-color);
+    }
+    
+    
+    
+    .nav__link.active a .bx-user{
+    color: var(--user-icon-color);
+    text-shadow: 0 0 15px var(--user-icon-color),
+                0 0 30px var(--user-icon-color),
+                0 0 45px var(--user-icon-color),
+                0 0 60px var(--user-icon-color);
+    }
+    
+    .nav__link:nth-child(4).active ~ .nav__light{
+    background-color: var(--user-icon-color);
+    }
+    
+    
+    .nav__link.active a .bx-bell{
+    color: var(--bell-icon-color);
+    text-shadow: 0 0 15px var(--bell-icon-color),
+                0 0 30px var(--bell-icon-color),
+                0 0 45px var(--bell-icon-color),
+                0 0 60px var(--bell-icon-color);
+    }
+    
+    .nav__link:nth-child(5).active ~ .nav__light{
+    background-color: var(--bell-icon-color);
+    }
+    </style>
+    
+    
+    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    
+    <nav class="nav">
+    <ul class="nav__links">
+    <li class="nav__link ativo">
+      <a href="/"><i class='bx bx-home-alt-2'></i></a>
+    </li>
+    <li class="nav__link">
+      <a href="#"><i class='bx bx-heart' ></i></a>
+    </li>
+    <li class="nav__link">
+      <a href="#"><i class='bx bx-plus' ></i></a>
+    </li>
+    <li class="nav__link">
+      <a href="#"><i class='bx bx-history' ></i></a>
+    </li>
+    <li class="nav__link active">
+      <a href="/perfil"><i class='bx bx-user' ></i></a>
+    </li>
+    
+  
+    </ul>
+    </nav>
+    <script>
+     const links = document.querySelectorAll('.nav__link');
+    const light = document.querySelector('.nav__light');
+    
+    
+    /*function moveLight({offsetLeft, offsetWidth}){
+    light.style.left = `${offsetLeft - offsetWidth/4}px`;
+    }*/
+    
+    function activeLink(linkActive){
+    links.forEach(link => {
+        link.classList.remove('active');
+        linkActive.classList.add('active');
+    })
+    }
+    
+    
+    links.forEach((link) => {
+    link.addEventListener('click', (event) => {
+        moveLight(event.target);
+        activeLink(link);
+    })
+    })
+    </script>
     
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
