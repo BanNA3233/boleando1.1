@@ -363,7 +363,7 @@ def jogo(id_jogo):
                     return "Jogo não encontrado", 404
 
                 # Renderize uma página HTML com informações sobre o jogo
-                return render_template('pagina_jogo.html', jogo=jogo)
+                return render_template('pagina_jogo.html', jogo=jogo, usuario=usuario)
 
 
 @app.route('/jogar', methods=['GET', 'POST'])
