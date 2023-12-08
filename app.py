@@ -456,6 +456,15 @@ def definirResultado():
     return redirect(url_for('perfil'))
 
 
+@app.route("/conf", methods=["GET", "POST"])
+def conf():
+    if 'id' in session:
+        user_id = session['id']
+        usuario = Users.query.get(user_id)
+
+    return render_template("conf.html", usuario=usuario)
+
+
 @app.route("/tutorial", methods=["GET"])
 def tutorial():
     return render_template("tutorial.html")
