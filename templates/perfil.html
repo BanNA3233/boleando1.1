@@ -5,265 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <title>Sua Página</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='mainbar.css')}}">
+    <link rel="stylesheet" href="../static/mainbar.css">
+    <link rel="stylesheet" href="../static/maibart.css">
+    <title>Main page</title>
 </head>
 <body>
+    <header>
+        <div class="modelo">
+              <img src="{{ url_for('static', filename='transferir.png') }}" class="imgp" alt="">
+              <a href="/comprarpontos" class="saldo"><h1>R$ {{usuario.pontos}}</h1></a>
+          
+          </div>
+    </header>
+<main>
+    <table class="table mabe">
+        <tr><td class="perfat">Nome:</td>
+            <td><form action="/alterar" method="post">
+                <input class="perft" type="text" value="{{ usuario.nome }}">
+                <input class="perfa" type="submit" value="Alterar">
+            </form></td>
+        </tr>
+        <tr><td class="perfat">Endereço:</td>
+            <td><form action="/alterar" method="post">
+                <input class="perft" type="text" value="{{ usuario.endereco }}">
+                <input class="perfa" type="submit" value="Alterar">
+            </form></td>
+        </tr>
+        <tr><td class="perfat">CPF:</td>
+            <td><form action="/alterar" method="post">
+                <input class="perft" type="text" value="{{ usuario.cpf }}">
+                <input class="perfa" type="submit" value="Alterar">
+            </form></td>
+        </tr>
+        <tr><td class="perfat">foto:</td>
+            <td><form action="/alterar" method="post">
+                <input class="perft" type="file"   >
+                <input class="perfa" type="submit" value="Alterar">
+            </form></td>
+        </tr>
+        <tr><td class="perfat">senha:</td>
+            <td><form action="/alterar" method="post">
+                <input class="perftc" type="password">
+                <input class="perfa" type="submit" value="Alterar">
+            </form></td>
+        </tr>
+    </table>
+</main>
 
-    <main>
-    <div class="container mt-5" style="height: 100%;">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <h4 class="mb-0">Seu Perfil</h4>
-                    </div>
-                    <div class="card-body">
-                        
-                        <h5 class="card-title mt-3">{{usuario.nome}}</h5>
-                        <p class="card-text"><strong>Email:</strong> {{usuario.email}}</p>
-                        <p class="card-text"><strong>Endereço:</strong> {{usuario.endereco}}</p>
 
-                        <p class="card-text"><strong>CPF:</strong> {{usuario.cpf}}</p>
-                        <a href="{{ url_for('editarPerfil') }}" class="btn btn-primary">Editar Perfil</a>
-                        <a href="/logout" class="btn btn-danger ml-2">Sair</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </main>
-    
-    <!-- Inclua o Bootstrap JavaScript (opcional, se necessário) -->
-    <style>
-        /* ------------ VARIABLES ------------ */
-    :root{
-    /* COLORS */
-    --tab-color: #191919;
-    --white-color: #fff;
-    --home-icon-color: #ff1e00;
-    --heart-icon-color: #f54848;
-    --plus-icon-color: rgb(228, 90, 36);
-    --user-icon-color: rgb(237, 240, 47);
-    --bell-icon-color: #3cff00;
-    
-    }
-    /* Adicione a nova classe de animação */
-    .nav__link.active a .bx-home-alt-2,
-    .nav__link.active a .bx-heart,
-    .nav__link.active a .bx-plus-circle,
-    .nav__link.active a .bx-user,
-    .nav__link.active a .bx-bell {
-        animation: icon-animation 1s infinite; /* Adicione a animação desejada */
-    }
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    @keyframes icon-animation {
-        0%, 100% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.2);
-        }
-    }
-    
-    /* ------------ BASE ------------ */
-    *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    list-style: none;
-    }
-    
-    body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    }
-    
-    li{
-    display: inline-block;
-    }
-    
-    /* ------------ MENU ------------ */
-    .nav{
-    background-color: var(--tab-color);
-    width: 100vw;
-    height: 10%;
-    border-radius: 1px;
-    padding: 0 2em;
-    top: 90vh;
-    box-shadow: 0 1em 1em rgba(0,0,0, .2);
-    
-    display: flex;
-    align-items: center;
-    
-    position: fixed;
-    overflow: hidden;
-    }
-    
-    .nav__links{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    }
-    
-    .nav__link a{
-    color: var(--white-color);
-    font-size: 2.5rem;
-    opacity: 0.5;
-    }
-    
-    .nav__light{
-    position: absolute;
-    top: 0;
-    left: 1.3em;
-    background-color: var(--white-color);
-    width: 4em;
-    height: .4em;
-    border-radius: 2px;
-    
-    display: flex;
-    justify-content: center;
-    
-    transition: .3s ease;
-    }
-    
-    .nav__light::before{
-    content: '';
-    width: 5em;
-    height: 7em;
-    position: absolute;
-    top: .4em;
-    background: linear-gradient(to bottom, rgba(255,255,255, .3) -50%, rgba(255,255,255, 0) 90%);
-    clip-path: polygon(30% 0, 70% 0, 100% 100%, 0% 100%);
-    }
-    
-    
-    .nav__link.active a{
-    opacity: 1;
-    }
-    
-    .nav__link.active a .bx-home-alt-2{
-    color: var(--home-icon-color);
-    text-shadow: 0 0 15px var(--home-icon-color),
-                0 0 30px var(--home-icon-color),
-                0 0 45px var(--home-icon-color),
-                0 0 60px var(--home-icon-color);
-    }
-    
-    .nav__link:nth-child(1).active ~ .nav__light{
-    background-color: var(--home-icon-color);
-    }
-    
-    
-    .nav__link.active a .bx-heart{
-    color: var(--heart-icon-color);
-    text-shadow: 0 0 15px var(--heart-icon-color),
-                0 0 30px var(--heart-icon-color),
-                0 0 45px var(--heart-icon-color),
-                0 0 60px var(--heart-icon-color);
-    }
-    
-    .nav__link:nth-child(2).active ~ .nav__light{
-    background-color: var(--heart-icon-color);
-    }
-    
-    
-    .nav__link.active a .bx-plus-circle{
-    color: var(--plus-icon-color);
-    text-shadow: 0 0 15px var(--plus-icon-color),
-                0 0 30px var(--plus-icon-color),
-                0 0 45px var(--plus-icon-color),
-                0 0 60px var(--plus-icon-color);
-    }
-    
-    .nav__link:nth-child(3).active ~ .nav__light{
-    background-color: var(--plus-icon-color);
-    }
-    
-    
-    
-    .nav__link.active a .bx-user{
-    color: var(--user-icon-color);
-    text-shadow: 0 0 15px var(--user-icon-color),
-                0 0 30px var(--user-icon-color),
-                0 0 45px var(--user-icon-color),
-                0 0 60px var(--user-icon-color);
-    }
-    
-    .nav__link:nth-child(4).active ~ .nav__light{
-    background-color: var(--user-icon-color);
-    }
-    
-    
-    .nav__link.active a .bx-bell{
-    color: var(--bell-icon-color);
-    text-shadow: 0 0 15px var(--bell-icon-color),
-                0 0 30px var(--bell-icon-color),
-                0 0 45px var(--bell-icon-color),
-                0 0 60px var(--bell-icon-color);
-    }
-    
-    .nav__link:nth-child(5).active ~ .nav__light{
-    background-color: var(--bell-icon-color);
-    }
-    </style>
-    
-    
-    
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
-    
-    <nav class="nav">
-    <ul class="nav__links">
-    <li class="nav__link ativo">
-      <a href="/"><i class='bx bx-home-alt-2'></i></a>
-    </li>
-    <li class="nav__link">
-      <a href="#"><i class='bx bx-heart' ></i></a>
-    </li>
-    <li class="nav__link">
-      <a href="#"><i class='bx bx-plus' ></i></a>
-    </li>
-    <li class="nav__link">
-      <a href="#"><i class='bx bx-history' ></i></a>
-    </li>
-    <li class="nav__link active">
-      <a href="/perfil"><i class='bx bx-user' ></i></a>
-    </li>
-    
-  
-    </ul>
-    </nav>
-    <script>
-     const links = document.querySelectorAll('.nav__link');
-    const light = document.querySelector('.nav__light');
-    
-    
-    /*function moveLight({offsetLeft, offsetWidth}){
-    light.style.left = `${offsetLeft - offsetWidth/4}px`;
-    }*/
-    
-    function activeLink(linkActive){
-    links.forEach(link => {
-        link.classList.remove('active');
-        linkActive.classList.add('active');
-    })
-    }
-    
-    
-    links.forEach((link) => {
-    link.addEventListener('click', (event) => {
-        moveLight(event.target);
-        activeLink(link);
-    })
-    })
-    </script>
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/SEU-ID-DO-KIT-FA.js" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/8fdfd8f48b.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
-    </body>
-    </html>
+
+<nav class="nav">
+<ul class="nav__links">
+<li class="nav__link">
+  <a href="/"><i class='bx bx-home-alt-2'></i></a>
+</li>
+<li class="nav__link active">
+  <a href="/conf"><i class='bx bx-user' ></i></a>
+</li>
+
+
+
+
+</ul>
+</nav>
+<a href="/criarjogo" style="font-size: 40px; padding: 1px 10px; color: #fff; background-color: #C70226; border-radius: 50%; position: fixed; top: 75%; right: 1%;"><i class="bx bx-plus"></i></a>
+<script>
+ const links = document.querySelectorAll('.nav__link');
+const light = document.querySelector('.nav__light');
+
+
+/*function moveLight({offsetLeft, offsetWidth}){
+light.style.left = `${offsetLeft - offsetWidth/4}px`;
+}*/
+
+function activeLink(linkActive){
+links.forEach(link => {
+    link.classList.remove('active');
+    linkActive.classList.add('active');
+})
+}
+
+
+links.forEach((link) => {
+link.addEventListener('click', (event) => {
+    moveLight(event.target);
+    activeLink(link);
+})
+})
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/SEU-ID-DO-KIT-FA.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/8fdfd8f48b.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -18,42 +18,23 @@
           
           </div>
     </header>
-
-<main>
-    <div class="container mt-5" style="margin-bottom: 50%;">
-        <h1>Histórico de Jogos criados</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID do Jogo</th>
-                    <th>Resultado Apostado</th>
-                    <th>Data da Aposta</th>
-                    <th>Valor Apostado</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for aposta in apostas %}
-                    <tr>
-                        <td>{{ aposta.id_jogo }}</td>
-                        <td>{{ aposta.resultado }}</td>
-                        <td>{{ aposta.data_jogada }}</td>
-                        <td>R$ {{ aposta.valor }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <main class="normade">
+<a href="/perfil" class="goal">Perfil</a>
+<a href="/historicocompra"class="goal">Historico de compras</a>
+<a href="/historicojg"class="goal">Historico de jogos</a>
+<a href="/historicoap"class="goal">Historico de apostas</a>
 </main>
+
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 
 <nav class="nav">
 <ul class="nav__links">
-<li class="nav__link active">
+<li class="nav__link">
   <a href="/"><i class='bx bx-home-alt-2'></i></a>
 </li>
-<li class="nav__link">
-  <a href="/conf"><i class='bx bx-user' ></i></a>
+<li class="nav__link active">
+  <a href="/perfil"><i class='bx bx-user' ></i></a>
 </li>
 
 
