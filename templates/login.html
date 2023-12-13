@@ -44,12 +44,12 @@ body {
 /*Login*/
 .login {
   position: relative;
-  width: 60vw;
+  width: 100vw;
   height: 100%;
 }
 
 .login label {
-  margin: 25% 0 5%;
+  margin: 1% 0 5%;
 }
 
 label {
@@ -76,7 +76,7 @@ label {
 .register {
   background: #eee;
   border-radius: 60% / 10%;
-  transform: translateY(5%);
+  transform: translateY(-20%);
   transition: .8s ease-in-out;
 }
 
@@ -86,12 +86,12 @@ label {
 }
 
 #chk:checked ~ .register {
-  transform: translateY(-60%);
+  transform: translateY(-90%);
 }
 
 #chk:checked ~ .register label {
   transform: scale(1);
-  margin: 10% 0 5%;
+  margin: 0 0 5%;
 }
 
 #chk:checked ~ .login label {
@@ -152,11 +152,21 @@ form button:hover {
         transform: translateY(60%);
     }
 }
-
+  .logo{
+    width: 10vw;
+  }
+  .logo_cont{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+  }
     </style>
 </head>
 <body>
-    <div class="main">  	
+    <div class="main">
+      <div class="logo_cont">
+        <img src="../static/LOGO.png" class="logo" alt="">
+      </div>
 		<input type="checkbox" id="chk" aria-hidden="true">
 
         <div class="login">
@@ -164,8 +174,11 @@ form button:hover {
                 <label for="chk" aria-hidden="true">LOGIN</label>
                 <input class="input" type="email" name="email" placeholder="Digite seu email aqui" required>
                 <input class="input" type="password" name="senha" placeholder="Digite sua senha aqui" required>
+                <p style="color: #e0dede;">Esqueci minha senha: <a href="/recuperar" style="color: #e0dede; text-decoration: none;">recuperar</a></p>  
                 <button type="submit">ENTRAR</button>
+                
             </form>
+            
         </div>
         
 

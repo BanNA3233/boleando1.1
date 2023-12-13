@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='mainbar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='maibart.css')}}">
     <link rel="stylesheet" href="../static/mainbar.css">
     <link rel="stylesheet" href="../static/maibart.css">
     <title>Main page</title>
@@ -13,7 +14,7 @@
 <body>
     <header>
         <div class="modelo">
-              <img src="{{ url_for('static', filename='transferir.png') }}" class="imgp" alt="">
+            <a href="/perfil" class="imgp"><img src="{{ url_for('static', filename='transferir.png') }}" class="imgp" alt=""></a>
               <a href="/comprarpontos" class="saldo"><h1>R$ {{usuario.pontos}}</h1></a>
           
           </div>
@@ -21,33 +22,38 @@
 <main>
     <table class="table mabe">
         <tr><td class="perfat">Nome:</td>
-            <td><form action="/alterar" method="post">
-                <input class="perft" type="text" value="{{ usuario.nome }}">
+            <td><form action="/editarPerfil" method="post">
+                <input class="perft" type="text" value="{{ usuario.nome }}" name="nome">
                 <input class="perfa" type="submit" value="Alterar">
             </form></td>
         </tr>
         <tr><td class="perfat">Endereço:</td>
-            <td><form action="/alterar" method="post">
-                <input class="perft" type="text" value="{{ usuario.endereco }}">
+            <td><form action="/editarPerfil" method="post">
+                <input class="perft" type="text" value="{{ usuario.endereco }}" name="endereco">
                 <input class="perfa" type="submit" value="Alterar">
             </form></td>
         </tr>
         <tr><td class="perfat">CPF:</td>
-            <td><form action="/alterar" method="post">
-                <input class="perft" type="text" value="{{ usuario.cpf }}">
+            <td><form action="/editarPerfil" method="post">
+                <input class="perft" type="text" value="{{ usuario.cpf }}" name="cpf">
                 <input class="perfa" type="submit" value="Alterar">
             </form></td>
         </tr>
         <tr><td class="perfat">foto:</td>
-            <td><form action="/alterar" method="post">
-                <input class="perft" type="file"   >
+            <td><form action="/editarPerfil" method="post">
+                <input class="perft" type="file"   name="file">
                 <input class="perfa" type="submit" value="Alterar">
             </form></td>
         </tr>
         <tr><td class="perfat">senha:</td>
-            <td><form action="/alterar" method="post">
-                <input class="perftc" type="password">
-                <input class="perfa" type="submit" value="Alterar">
+            <td><form action="/editarPerfil" method="post">
+                <input class="perftc" id="senha" type="password" name="senha" autocomplete="off">
+            </td>
+        </tr>
+        <tr><td class="perfat">Repita a senha:</td>
+            <td>
+                <input class="perftc" id="rsenha" type="password" name="rsenha" autocomplete="off">
+                <input class="perfa" id="tsenha" type="submit" value="Alterar">
             </form></td>
         </tr>
     </table>
@@ -74,27 +80,32 @@
 <a href="/criarjogo" style="font-size: 40px; padding: 1px 10px; color: #fff; background-color: #C70226; border-radius: 50%; position: fixed; top: 75%; right: 1%;"><i class="bx bx-plus"></i></a>
 <script>
  const links = document.querySelectorAll('.nav__link');
-const light = document.querySelector('.nav__light');
+ const senha = document.querySelector('#senha');
+ const rsenha = document.querySelector('#rsenha');
+ const tsenha = document.querySelector('#tsenha');
+ const light = document.querySelector('.nav__light');
+
+    var type1 = senha.value;
+    var type2 = rsenha.value;
+
+    /*function moveLight({offsetLeft, offsetWidth}){
+    light.style.left = `${offsetLeft - offsetWidth/4}px`;
+    }*/
+
+    function activeLink(linkActive){
+    links.forEach(link => {
+        link.classList.remove('active');
+        linkActive.classList.add('active');
+    })
+    }
 
 
-/*function moveLight({offsetLeft, offsetWidth}){
-light.style.left = `${offsetLeft - offsetWidth/4}px`;
-}*/
-
-function activeLink(linkActive){
-links.forEach(link => {
-    link.classList.remove('active');
-    linkActive.classList.add('active');
-})
-}
-
-
-links.forEach((link) => {
-link.addEventListener('click', (event) => {
-    moveLight(event.target);
-    activeLink(link);
-})
-})
+    links.forEach((link) => {
+    link.addEventListener('click', (event) => {
+        moveLight(event.target);
+        activeLink(link);
+    })
+    })
 </script>
 
 

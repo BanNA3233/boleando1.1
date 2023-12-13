@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 body {
     background-color: #f8f9fa;
     color: #212529;
@@ -91,20 +92,88 @@ header {
     padding: 15px;
 }
 
-.btn_jogo {
-    background-color: #28a745;
-    color: #fff;
-    padding: 10px;
-    text-decoration: none;
-    display: block;
-    border-radius: 0 0 5px 5px;
-    text-align: center;
-    transition: background-color 0.3s;
-}
-
-.btn_jogo:hover {
-    background-color: #218838;
-}
 .m1{
     margin-bottom: 20px;
 }
+
+.jogo_head{
+    display: flex;
+    flex-direction: row;
+}
+.dvi{
+    width: 50%;
+}
+.dvi img{
+    width: 100%;
+}
+
+.container {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+#banner_jogo {
+    border-radius: 0px 0px 15px 15px;
+}
+
+.title1 {
+    color: #C70226;
+    font-weight: bold;
+    padding-left: 15px;
+}
+
+.Dados {
+    margin-top: 20px;
+    padding-left: 15px;
+}
+
+.data {
+    font-weight: bold;
+    padding-left: 15px;
+}
+
+#jogar {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    color: #C70226;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+}
+
+.buttom {
+    background-color: #C70226;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.buttom:hover {
+    background-color: #C70226;
+}
+

@@ -5,6 +5,8 @@ from datetime import datetime, date
 from sqlalchemy import Date
 import asaas
 import json
+import mail
+import nur
 
 app = Flask(__name__)
 app.secret_key = 'Ban'
@@ -33,8 +35,9 @@ class Users(db.Model):
     cpf = db.Column (db.String(80), unique=True, nullable=False)
     email = db.Column (db.String(80), unique=True, nullable=False)
     endereco = db.Column (db.String(80), nullable=False) 
-    senha = db.Column(db.String(4096), nullable=False)
+    senha = db.Column(db.String(4096), nullable=True)
     pontos = db.Column (db.Float(), nullable=False)
+    ver = db.Column(db.String(6), nullable=True)
     
 class Criarjogos (db.Model):
     id_jogo = db.Column (db.Integer, primary_key=True)
@@ -91,6 +94,11 @@ def registro():
         email = request.form['email']
         endereco = request.form['endereco']
         senha = request.form['senha']
+
+        cpf.replace(".","")
+        cpf.replace("-","")
+
+        email.lower()
         
         existing_user = Users.query.filter_by(email=email).first()
         if existing_user:
@@ -159,30 +167,30 @@ def editarPerfil():
         user_id = session['id']
         usuario = Users.query.get(user_id)
         
-        
-        if request.method == 'POST':
-            usuario.nome = request.form['nome']
-            usuario.cpf = request.form['cpf']
-            usuario.email = request.form['email']
-            usuario.endereco = request.form['endereco']
-            
-            if 'foto_perfil' in request.files:
-                foto_perfil = request.files['foto_perfil']
-            if foto_perfil.filename != '':
-                # Salve a foto no servidor e atualize o caminho no banco de dados
-                # Certifique-se de definir um caminho de destino adequado para salvar a foto
-                caminho_salvar = "./static/"+str(user_id)+".jpg"
-                foto_perfil.save(caminho_salvar)
-                usuario.foto_perfil = caminho_salvar
-                
-            nova_senha = request.form['senha']
-            if nova_senha:
-                senhahash = generate_password_hash(nova_senha)
-                usuario.senha = senhahash
-                
-            db.session.commit()
+        if request.method == "POST":
+            nome = request.form.get('nome')
+            cpf = request.form.get('cpf')
+            endereco = request.form.get('endereco')
+            senha = request.form.get('senha')
+            rsenha = request.form.get('rsenha')
+
+            if nome:
+                usuario.nome = nome
+                db.session.commit()
+            if cpf:
+                usuario.cpf = cpf
+                db.session.commit()
+            if endereco:
+                usuario.endereco = endereco
+                db.session.commit()
+            if senha:
+                if senha == rsenha:
+                    usuario.senha = senha
+                    db.session.commit()
+                else:
+                    jsonify("as senhas precisam ser iguais para fazer a troca")
+                          
             return redirect(url_for('perfil'))
-        return render_template('editarPerfil.html', usuario=usuario)
     
     
 @app.route('/comprarpontos', methods=['GET', 'POST'])
@@ -331,6 +339,11 @@ def criar_jogos():
                     
                     db.session.add(reg_jogo)
                     db.session.commit()
+                    jogo = Criarjogos.query.filter_by(id_criador=user_id, time1=time1, time2=time2, nome_jogo=nomeJogo).first()
+                    iddd = jogo.id_jogo
+                    link_jogo = 'https://bolaodagalera.com/jogo/'+str(iddd)
+
+                    mail.criarjogo(link_jogo)
                     
                         
                     
@@ -462,7 +475,53 @@ def conf():
         user_id = session['id']
         usuario = Users.query.get(user_id)
 
-    return render_template("conf.html", usuario=usuario)
+        if usuario:
+            return render_template("conf.html", usuario=usuario)
+    return redirect(url_for('login'))
+
+
+@app.route("/recuperar", methods=["GET", "POST"])
+def recuperar():
+    if request.method == "POST":
+        email = request.form.get("email")
+        exist_email = Users.query.filter_by(email=email).first()
+        print(exist_email)
+        print(email)
+        if exist_email:
+            numero = nur.gerar_string_aleatoria(6)
+            mail.recuperar(numero=str(numero), email=str(email))
+            usuario = Users.query.filter_by(email=email).first()
+            usuario.ver = numero
+            db.session.commit()
+            return redirect(url_for("recuperarsenha"))
+        else:
+            return "Endereço de email não encontrado. Caso ache que isso é um problema, entre em contato com nosso suporte."
+
+    return render_template("recuperar.html")
+
+@app.route("/recuperarsenha", methods=["POST", "GET"])
+def recuperarsenha():
+    if request.method == "POST":
+        senha = request.form.get("senha")
+        csenha = request.form.get("csenha")
+        verif = request.form.get("cod")
+
+        usuario = Users.query.filter_by(ver=verif).first()
+        if usuario:
+            if senha == csenha:
+                usuario.senha = senha
+                usuario.ver = "numero"
+                db.session.commit()
+                return redirect(url_for("login"))
+            else:
+                return "os campos senha e confirmar senha devem ser iguais tente novamente"
+        else:
+            return "codigo incorreto tenha certeza que digitou corretamente letras maiusculas e minusculas"
+         #Process the form submission if needed
+    return render_template("recuperar_senha.html")
+
+
+
 
 
 @app.route("/tutorial", methods=["GET"])

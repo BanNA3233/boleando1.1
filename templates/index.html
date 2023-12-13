@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='mainbar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='maibart.css')}}">
     <link rel="stylesheet" href="../static/mainbar.css">
     <link rel="stylesheet" href="../static/maibart.css">
     <title>Main page</title>
@@ -13,7 +14,7 @@
 <body>
     <header>
         <div class="modelo">
-              <img src="{{ url_for('static', filename='transferir.png') }}" class="imgp" alt="">
+              <a href="/perfil" class="imgp"><img src="{{ url_for('static', filename='transferir.png') }}" class="imgp" alt=""></a>
               <a href="/comprarpontos" class="saldo"><h1>R$ {{usuario.pontos}}</h1></a>
           
           </div>
