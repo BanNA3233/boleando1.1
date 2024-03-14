@@ -11,7 +11,7 @@ import nur
 app = Flask(__name__)
 app.secret_key = 'Ban'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:eeFA3bCGg3Bg-feAc-cAhGE3bhdCBHdF@roundhouse.proxy.rlwy.net:20270/railway' 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://casaos:casaos@177.91.85.254:3306/casaos' 
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -542,7 +542,9 @@ def tutorial():
             
     
 
+with app.app_context():
+    db.create_all()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
     
