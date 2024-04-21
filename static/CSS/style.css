@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+.nav-link{
+    color: white;
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show{
+    color: white;
+    text-decoration: underline 2px;
+}
+
+.nav-link:hover{
+    color: white;
+}
+
+.navbar-toggler-icon{
+    color: white;
+}
+.btn{
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    color: rgb(238 1 7);
+    font-weight: bold;
+    transition: 200ms linear;
+    cursor: auto;
+}
+.btn:hover{
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    color: rgb(238 1 7);
+    font-weight: bold;
+    transition: 200ms linear;
+    cursor: auto;
+}
+.jogos{
+    margin-top: 17px;
+}
+.jogos div h1{
+    text-align: center;
+    font-family: "Josefin Sans", sans-serif;
+    font-optical-sizing: auto;
+    color: rgb(238 1 7);
+}
+.jogos-div{
+    margin: 0 5px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.fab{
+    position: fixed;
+    bottom:10px;
+    right:10px;
+  }
+  
+  .fab a{
+    cursor: pointer;
+    text-align: center;
+    width: 120px;
+    height: 48px;
+    border-radius: 30px;
+    background-color: rgb(238 1 7);
+    border: none;
+    box-shadow: 0 1px 5px rgba(0,0,0,.4);
+    font-size: 24px;
+    color: white;
+      
+    -webkit-transition: .2s ease-out;
+    -moz-transition: .2s ease-out;
+    transition: .2s ease-out;
+  }
+  
+  .fab a:focus{
+    outline: none;
+  }
+  
+  .fab a.main{
+    position: absolute;
+    text-align: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    background-color: rgb(238 1 7);
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+  }
+  
+  .fab a.main:before{
+    content: '⏚';
+  }
+  
+  .fab ul{
+    position:absolute;
+    bottom: 0;
+    right: 0;
+    padding:0;
+    padding-right:5px;
+    margin:0;
+    list-style:none;
+    z-index:10;
+    
+    -webkit-transition: .2s ease-out;
+    -moz-transition: .2s ease-out;
+    transition: .2s ease-out;
+  }
+  
+  .fab ul li{
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    margin-bottom: -10%;
+    opacity: 0;
+    
+    -webkit-transition: .3s ease-out;
+    -moz-transition: .3s ease-out;
+    transition: .3s ease-out;
+  }
+  
+  .fab ul li label{
+    margin-right:10px;
+    white-space: nowrap;
+    display: block;
+    margin-top: 10px;
+    padding: 5px 8px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    border-radius:3px;
+    height: 18px;
+    font-size: 16px;
+    pointer-events: none;
+    opacity:0;
+    
+    -webkit-transition: .2s ease-out;
+    -moz-transition: .2s ease-out;
+    transition: .2s ease-out;
+  }
+  
+  .fab.show a.main,
+  .fab.show a.main{
+    outline: none;
+    background-color: rgb(238 1 7);
+    box-shadow: 0 3px 8px rgba(0,0,0,.5);
+   }
+   
+  .fab.show a.main:before,
+  .fab.show a.main:before{
+    content: '↑';
+  }
+  
+  .fab.show a.main + ul,
+  .fab.show a.main + ul{
+    bottom: 70px;
+  }
+  
+  .fab.show a.main + ul li,
+  .fab.show a.main + ul li{
+    margin-bottom: 10px;
+    opacity: 1;
+  }
+  
+  .fab.show a.main + ul li:hover label,
+  .fab.show a.main + ul li:hover label{
+    opacity: 1;
+  }
+  a{
+    text-decoration: none;
+  }
+#compratido{
+    display: flex;
+    justify-content: center;
+}
+#compramain{
+    width: 60vw;
+}

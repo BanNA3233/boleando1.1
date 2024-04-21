@@ -2,10 +2,11 @@ import requests
 import json
 from sqlalchemy import Date
 from datetime import date
+from datetime import datetime
 
 
 
-charkey = "$aact_YTU5YTE0M2M2N2I4MTliNzk0YTI5N2U5MzdjNWZmNDQ6OjAwMDAwMDAwMDAwMDAwNjkxOTE6OiRhYWNoXzhmYjI1Mjc5LTZmNjUtNGE5Mi1hNzc1LTBjOTM5ZDM4MzJjMQ=="
+charkey = "$aact_YTU5YTE0M2M2N2I4MTliNzk0YTI5N2U5MzdjNWZmNDQ6OjAwMDAwMDAwMDAwMDAwNjkxOTE6OiRhYWNoXzdlNWEyMDk5LWU5YjEtNGFmZC1hYjYwLTBjOTQ5YTVmZWU0Yw=="
 
 
 def criarcliente(cliente_id):
@@ -33,16 +34,19 @@ def criarcliente(cliente_id):
     return id_cliente
 
 
-def criarpix(cliente_id):
+def pagamento(formato):
+    current_date = datetime.now().date()
     url = "https://sandbox.asaas.com/api/v3/payments"
-    
-    data_atual = date.today()
-    tempo = str(data_atual)
+    date = str(current_date)
+    print(date)
     payload = {
-        "billingType": "PIX",
-        "customer": cliente_id["id"],
-        "value": cliente_id["valor"],
-        "dueDate": tempo
+        "billingType": formato['tipo'],
+        "customer": formato["id_assas"],
+        "dueDate": date,
+        "value": formato["valor"],
+        "description": formato["nome_event"],
+        "externalReference": 5225,
+        "postalService": False
     }
     headers = {
         "accept": "application/json",
@@ -51,12 +55,14 @@ def criarpix(cliente_id):
     }
 
     response = requests.post(url, json=payload, headers=headers)
+    
+    json_data = response.text
+    data = json.loads(json_data)
 
-    pagamento = json.loads(response.content)
-    invoice_url = pagamento.get("invoiceUrl")
-    id_pay = pagamento.get("id")
-
-    return invoice_url, id_pay
+# Capturar o campo invoiceUrl
+    invoice_url = data["invoiceUrl"]
+    id = data['id']
+    return invoice_url, id
 
 
 def payment(id_pay):
@@ -70,8 +76,9 @@ def payment(id_pay):
     }
 
     response = requests.get(uri, headers=headers)
-    result = json.loads(response.content)
-    status = result.get("status")
+    result = response.text
+    data = json.loads(result)
+    status = data["status"]
     return status
 
 

@@ -19,6 +19,7 @@ body {
   font-family:arial;
 }
 .main {
+  width: 50%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -44,8 +45,6 @@ body {
 /*Login*/
 .login {
   position: relative;
-  width: 100vw;
-  height: 100%;
 }
 
 .login label {
@@ -76,7 +75,7 @@ label {
 .register {
   background: #eee;
   border-radius: 60% / 10%;
-  transform: translateY(-20%);
+  transform: translateY(-15%);
   transition: .8s ease-in-out;
 }
 
@@ -116,49 +115,40 @@ form button {
 form button:hover {
   background-color: #2e0000;
 }
-@media (max-width: 600px) {
-    .login{
-        width: 100vw;
-        height: 80vh;
-    }
+@media (max-width: 750px) {
     .register{
-        transform: translateY(30%);
+        transform: translateY(10%);
     }
 }
 @media (max-width: 500px) {
-    .login{
-        width: 100vw;
-        height: 80vh;
-    }
+
     .register{
-        transform: translateY(40%);
+        transform: translateY(15%);
     }
 }
 @media (max-width: 400px) {
-    .login{
+    .main{
         width: 100vw;
-        height: 80vh;
     }
     .register{
-        transform: translateY(50%);
+        transform: translateY(15%);
     }
 }
 @media (max-width: 300px) {
-    .login{
+    .main{
         width: 100vw;
-        height: 80vh;
     }
     .register{
-        transform: translateY(60%);
+        transform: translateY(25%);
     }
 }
   .logo{
     width: 10vw;
   }
   .logo_cont{
-    width: 100vw;
     display: flex;
     justify-content: center;
+    margin-top: 25px;
   }
     </style>
 </head>

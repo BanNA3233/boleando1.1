@@ -1,24 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='mainbar.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='maibart.css')}}">
-    <link rel="stylesheet" href="../static/mainbar.css">
-    <link rel="stylesheet" href="../static/maibart.css">
-    <title>Main page</title>
-</head>
-<body>
-    <header>
-        <div class="modelo">
-            <a href="/perfil" class="imgp"><img src="{{ url_for('static', filename='transferir.png') }}" class="imgp" alt=""></a>
-              <a href="/comprarpontos" class="saldo"><h1>R$ {{usuario.pontos}}</h1></a>
-          
-          </div>
-    </header>
+{% extends "index.html" %}
+
+{% block main %}
 <main>
     <div class="container mt-5" style="margin-bottom: 50%;">
         <h1>Histórico de Jogos criados</h1>
@@ -29,6 +11,8 @@
                     <th>Nome do jogo</th>
                     <th>Data de criação</th>
                     <th>Data do Jogo</th>
+                    <th>Status</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -38,59 +22,11 @@
                         <td>{{ historico.nome_jogo }}</td>
                         <td>{{ historico.data_criacao }}</td>
                         <td>{{ historico.data_jogo }}</td>
+                        <td>{{ historico.status }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </main>
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-<nav class="nav">
-<ul class="nav__links">
-<li class="nav__link">
-  <a href="/"><i class='bx bx-home-alt-2'></i></a>
-</li>
-<li class="nav__link active">
-  <a href="/conf"><i class='bx bx-user' ></i></a>
-</li>
-
-
-
-
-</ul>
-</nav>
-<a href="/criarjogo" style="font-size: 40px; padding: 1px 10px; color: #fff; background-color: #C70226; border-radius: 50%; position: fixed; top: 75%; right: 1%;"><i class="bx bx-plus"></i></a>
-<script>
- const links = document.querySelectorAll('.nav__link');
-const light = document.querySelector('.nav__light');
-
-
-/*function moveLight({offsetLeft, offsetWidth}){
-light.style.left = `${offsetLeft - offsetWidth/4}px`;
-}*/
-
-function activeLink(linkActive){
-links.forEach(link => {
-    link.classList.remove('active');
-    linkActive.classList.add('active');
-})
-}
-
-
-links.forEach((link) => {
-link.addEventListener('click', (event) => {
-    moveLight(event.target);
-    activeLink(link);
-})
-})
-</script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="https://kit.fontawesome.com/SEU-ID-DO-KIT-FA.js" crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/8fdfd8f48b.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% endblock %}

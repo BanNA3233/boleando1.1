@@ -176,4 +176,12 @@ input {
 .buttom:hover {
     background-color: #C70226;
 }
-
+#banner_jogo{
+    text-align: center;
+}
+.principal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

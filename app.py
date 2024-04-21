@@ -41,17 +41,18 @@ class Users(db.Model):
     
 class Criarjogos (db.Model):
     id_jogo = db.Column (db.Integer, primary_key=True)
-    id_criador = db.Column (db.String(80), nullable=False)
-    nome_jogo = db.Column (db.String(80), nullable=False)
-    banner_jogo = db.Column (db.String(80), nullable=False)
-    resultado_jogo = db.Column (db.String(80), nullable=True)
+    id_criador = db.Column (db.String(80))
+    nome_criador = db.Column (db.String(80))
+    nome_jogo = db.Column (db.String(80))
+    banner_jogo = db.Column (db.String(80))
+    resultado_jogo = db.Column (db.String(80))
     data_criacao = db.Column (db.DateTime)
     data_jogo = db.Column(Date, default=date.today)
-    caminho_banner = db.Column (db.String(80), nullable=False)
-    time1 = db.Column (db.String(80), nullable=False)
-    time2 = db.Column (db.String(80), nullable=False)
-    valor_acumulado = db.Column (db.Float(80), nullable=False)
-    status = db.Column (db.String(80), nullable=False)
+    caminho_banner = db.Column (db.String(80))
+    time1 = db.Column (db.String(80))
+    time2 = db.Column (db.String(80))
+    valor_acumulado = db.Column (db.String(80))
+    status = db.Column (db.String(80))
     
 class Jogadar (db.Model):
     id_jogada = db.Column (db.Integer, primary_key=True)
@@ -136,9 +137,7 @@ def login():
         # Verifique a senha usando custom_app_context.verify
         if usuario and senha == usuario.senha:
             session['id'] = usuario.id
-            flash('Login Bem Sucedido', 'success')
-            return redirect(url_for('perfil'))
-        flash('Login ou senha incorretos, tente novamente.', 'danger')
+            return redirect(url_for('index'))
         
     return render_template('login.html')
 
@@ -198,24 +197,23 @@ def comprarPontos():
     if 'id' in session:
             user_id = session['id']
             usuario = Users.query.get(user_id)
-            pontos = ''
-            usuario.id = user_id
             if request.method == 'POST':
             
-                pontos = request.form['qPontos']
+                pontos = request.form.get('valor')
+                forma = request.form.get('forma')
 
-                pontos = request.form['qPontos']
-                data_compra = datetime.utcnow()
+                data_compra = datetime.today()
                 
-                cliente_id = {
-                    "id": usuario.id_assas,
+                formato = {
+                    "id_assas": usuario.id_assas,
                     "valor": pontos,
+                    "tipo": forma,
+                    "nome_event": "adicionando saldo a conta"
                 }
 
                 
 
-                pix = asaas.criarpix(cliente_id=cliente_id)
-                print(pix[1])
+                pix = asaas.pagamento(formato=formato)
                 pay = str(pix[1])
                 linkp = pix[0]
                 by_history = Pontos(id_pay=pay ,id_assas=usuario.id_assas, id_jogador=user_id, pontos=pontos, data_compra=data_compra, status="pendente", link=linkp)
@@ -335,7 +333,7 @@ def criar_jogos():
                         
                         
                     
-                    reg_jogo = Criarjogos(id_criador=user_id, nome_jogo=nomeJogo, banner_jogo=caminho_salvar, data_criacao=data_criacao, data_jogo=data_jogo, caminho_banner=caminho_banner, time1=time1, time2=time2, valor_acumulado=valor_somar, status="rodando")
+                    reg_jogo = Criarjogos(id_criador=user_id, nome_criador=usuario.nome, nome_jogo=nomeJogo, banner_jogo=caminho_salvar, data_criacao=data_criacao, data_jogo=data_jogo, caminho_banner=caminho_banner, time1=time1, time2=time2, valor_acumulado=valor_somar, status="rodando")
                     
                     db.session.add(reg_jogo)
                     db.session.commit()
@@ -448,14 +446,14 @@ def definirResultado():
             
             taxa_nv = valor_restante * 0.10
         
-            adm = Users.query.get(0)  # Substitua 4 pelo ID do usuário administrador
+            adm = Users.query.get(1)  # Substitua 4 pelo ID do usuário administrador
             adm.pontos += valor_adm + taxa_nv
             
         criador_jogo = jogo.id_criador
         carteira_criador = Users.query.get(criador_jogo)
         carteira_criador.pontos += valor_criador
         
-        adm = Users.query.get(0)  # Substitua 4 pelo ID do usuário administrador
+        adm = Users.query.get(1)  # Substitua 4 pelo ID do usuário administrador
         adm.pontos += valor_adm
         
         jogo.valor_acumulado = float(0.0)
@@ -463,10 +461,10 @@ def definirResultado():
         
         db.session.commit()
         
-        return redirect(url_for('perfil'))
+        return redirect(url_for('index'))
     
         
-    return redirect(url_for('perfil'))
+    return redirect(url_for('index'))
 
 
 @app.route("/conf", methods=["GET", "POST"])

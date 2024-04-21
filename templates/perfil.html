@@ -1,117 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='mainbar.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='maibart.css')}}">
-    <link rel="stylesheet" href="../static/mainbar.css">
-    <link rel="stylesheet" href="../static/maibart.css">
-    <title>Main page</title>
-</head>
-<body>
-    <header>
-        <div class="modelo">
-            <a href="/perfil" class="imgp"><img src="{{ url_for('static', filename='transferir.png') }}" class="imgp" alt=""></a>
-              <a href="/comprarpontos" class="saldo"><h1>R$ {{usuario.pontos}}</h1></a>
-          
-          </div>
-    </header>
-<main>
-    <table class="table mabe">
-        <tr><td class="perfat">Nome:</td>
-            <td><form action="/editarPerfil" method="post">
-                <input class="perft" type="text" value="{{ usuario.nome }}" name="nome">
-                <input class="perfa" type="submit" value="Alterar">
-            </form></td>
-        </tr>
-        <tr><td class="perfat">Endereço:</td>
-            <td><form action="/editarPerfil" method="post">
-                <input class="perft" type="text" value="{{ usuario.endereco }}" name="endereco">
-                <input class="perfa" type="submit" value="Alterar">
-            </form></td>
-        </tr>
-        <tr><td class="perfat">CPF:</td>
-            <td><form action="/editarPerfil" method="post">
-                <input class="perft" type="text" value="{{ usuario.cpf }}" name="cpf">
-                <input class="perfa" type="submit" value="Alterar">
-            </form></td>
-        </tr>
-        <tr><td class="perfat">foto:</td>
-            <td><form action="/editarPerfil" method="post">
-                <input class="perft" type="file"   name="file">
-                <input class="perfa" type="submit" value="Alterar">
-            </form></td>
-        </tr>
-        <tr><td class="perfat">senha:</td>
-            <td><form action="/editarPerfil" method="post">
-                <input class="perftc" id="senha" type="password" name="senha" autocomplete="off">
-            </td>
-        </tr>
-        <tr><td class="perfat">Repita a senha:</td>
-            <td>
-                <input class="perftc" id="rsenha" type="password" name="rsenha" autocomplete="off">
-                <input class="perfa" id="tsenha" type="submit" value="Alterar">
-            </form></td>
-        </tr>
-    </table>
-</main>
+{% extends "index.html" %}
 
-
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-<nav class="nav">
-<ul class="nav__links">
-<li class="nav__link">
-  <a href="/"><i class='bx bx-home-alt-2'></i></a>
-</li>
-<li class="nav__link active">
-  <a href="/conf"><i class='bx bx-user' ></i></a>
-</li>
-
-
-
-
-</ul>
-</nav>
-<a href="/criarjogo" style="font-size: 40px; padding: 1px 10px; color: #fff; background-color: #C70226; border-radius: 50%; position: fixed; top: 75%; right: 1%;"><i class="bx bx-plus"></i></a>
-<script>
- const links = document.querySelectorAll('.nav__link');
- const senha = document.querySelector('#senha');
- const rsenha = document.querySelector('#rsenha');
- const tsenha = document.querySelector('#tsenha');
- const light = document.querySelector('.nav__light');
-
-    var type1 = senha.value;
-    var type2 = rsenha.value;
-
-    /*function moveLight({offsetLeft, offsetWidth}){
-    light.style.left = `${offsetLeft - offsetWidth/4}px`;
-    }*/
-
-    function activeLink(linkActive){
-    links.forEach(link => {
-        link.classList.remove('active');
-        linkActive.classList.add('active');
-    })
-    }
-
-
-    links.forEach((link) => {
-    link.addEventListener('click', (event) => {
-        moveLight(event.target);
-        activeLink(link);
-    })
-    })
-</script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="https://kit.fontawesome.com/SEU-ID-DO-KIT-FA.js" crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/8fdfd8f48b.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% block main %}
+<div style="display: flex; justify-content: center;">
+<div style="border-radius: 15px ;padding: 25px; box-shadow: 14px 11px 61px 4px rgba(0,0,0,0.59);width: 60%; margin-top: 40px;">
+        <form action="/editarPerfil" method="post">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Nome</span>
+                <input type="text" name="nome" value="{{usuario.nome}}" disabled class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Email</span>
+                <input type="text" class="form-control" value="{{usuario.email}}" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Endereço</span>
+                <input type="text" class="form-control" name="endereco" value="{{usuario.endereco}}" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">CPF</span>
+                <input type="text" class="form-control" name="cpf" disabled value="{{usuario.cpf}}" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Senha</span>
+                <input type="password" class="form-control" name="senha"  placeholder="Digite para alterar a senha!" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Confirmar senha</span>
+                <input type="text" class="form-control" name="rsenha" placeholder="confirme a sua nova senha" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <input type="submit" style="cursor: pointer;" class="btn btn-danger" value="Alterar">
+        
+    </form>
+</div>
+</div>
+{% endblock %}

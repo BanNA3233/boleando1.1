@@ -1,147 +1,69 @@
-    <style>
-        #banner_jogo{
-            width: 80vw;
-            height: 30vh;
-        }
-        .title1{
-            font-size: 90px;
-            font-weight: 900;
-            color: black;
-        }
-        .data{
-            font-size: 50px;
-        }
-        #quebrada{
-            display: flex;
-            flex-direction: row-reverse;
-        }
-        #jogar{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;    
+ {% extends "index.html" %} 
 
-        }
-        #jogar div{
-            display: flex;
-            flex-direction: column;
-            margin-left: 25px;
-            font-size: 110%;
-            font-weight: bold;
-        }
-        .buttom{
-            height: 40px;
-            border-radius: 10px;
-        }
-        .container{
-            align-items: center;
-            justify-content: center;
-
-        }
-        
-    </style>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='mainbar.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='maibart.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='now.css')}}">
-    <link rel="stylesheet" href="../static/mainbar.css">
-    <link rel="stylesheet" href="../static/maibart.css">
-    <title>Main page</title>
+ {% block main %}
+ <style>
+    .principal {
+        margin-top: 20px;
+        justify-content: center;
+    }
+    .title1 {
+        color: #C70226; /* Tom de vermelho escolhido */
+        margin-top: 20px;
+    }
+    .data {
+        font-size: 1.2em;
+        color: #666;
+        margin-bottom: 20px;
+    }
+    .container {
+        padding: 20px;
+        background-color: #fff; /* Fundo claro para melhor legibilidade */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra sutil para o container */
+        border-radius: 5px; /* Bordas arredondadas */
+    }
+    .form-control {
+        margin: 10px 0;
+    }
+    .form-inline {
+        display: flex;
+        gap: 10px; /* Espaço entre os inputs */
+        align-items: center;
+        flex-wrap: wrap; /* Responsividade no wrap */
+    }
+    h1 {
+        font-weight: bold;
+    }
+</style>
 </head>
 <body>
-    <header>
-        <div class="modelo" style="overflow-y: hidden;">
-            <a href="/perfil" class="imgp"><img src="{{ url_for('static', filename='transferir.png') }}" class="imgp" alt=""></a>
-              <a href="/comprarpontos" class="saldo" style="color: #ffffff;"><h1 style="color: #ffffff;">R$ {{usuario.pontos}}</h1></a>
-          
-          </div>
-    </header>
-    <div class="container">
-        <img src="{{ url_for('static', filename=jogo.caminho_banner) }}" alt="{{ jogo.nome_jogo }} Banner" id="banner_jogo" class="img-fluid">
-        <h1 class="title1 display-4">{{ jogo.nome_jogo }}</h1>
-        <p class="data">Data do Jogo: {{ jogo.data_jogo }}</p>
-        <!-- Adicione mais informações do jogo conforme necessário -->
-    </div>
-    <div class="container">
-        <form action="/jogar" method="post" id="jogar">
-            <h1>Qual Será O Resultado Final?</h1>
-            <div  style="display: flex; flex-direction: row;">
-            <div style="display: none;">
-            <label for="id_jogo">ID DO JOGO</label>
-            <input type="text" name="id_jogo" class="time1" id="time1" readonly value="{{ jogo.id_jogos }}">
+<div class="principal">
+    <img src="{{ url_for('static', filename=jogo.caminho_banner) }}" alt="{{ jogo.nome_jogo }} Banner" id="banner_jogo" class="img-fluid">
+<div class="container">
+    <h1 class="title1 display-4">{{ jogo.nome_jogo }}</h1>
+    <p class="data">Data do Jogo: {{ jogo.data_jogo }}</p>
+    <!-- Adicione mais informações do jogo conforme necessário -->
+</div>
+<div class="container">
+    <form action="/jogar" method="post" id="jogar">
+        <h1>Qual Será O Resultado Final?</h1>
+        <div class="form-inline">
+            <input type="hidden" name="id_jogo" value="{{ jogo.id_jogos }}">
+            <div>
+                <label for="time1">{{ jogo.time1.upper() }}</label>
+                <input type="number" name="time1" class="form-control" id="time1" required>
+            </div>
+            <div><h1>X</h1></div>
+            <div>
+                <label for="time2">{{ jogo.time2.upper() }}</label>
+                <input type="number" name="time2" class="form-control" id="time2" required>
             </div>
             <div>
-            <label for="time1"> {{jogo.time1.upper()}} </label>
-            <input type="number" name="time1" class="time1" id="time1" required>
+                <label for="valor">Valor da Aposta</label>
+                <input type="number" step="0.01" name="valor" class="form-control" id="valor" required>
             </div>
-            <div> <h1>X</h1></div>
-            <div>
-            <label for="time2">{{jogo.time2.upper()}}</label>
-            <input type="number" name="time2" class="time2" id="time2" required>
-            </div>
-            <div>
-            <label for="valor">Valor da Aposta</label>
-            <input type="float" name="valor" class="time2" id="time2" required>
-            </div>
-            
-            </div>
-            <input type="submit" class=" btn-primary buttom" value="Enviar">
-        </form>
-    </div>
-
-    <!-- Adicione a referência ao JavaScript do Bootstrap (opcional, mas útil em alguns casos) -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-<nav class="nav">
-<ul class="nav__links">
-<li class="nav__link active">
-  <a href="/"><i class='bx bx-home-alt-2'></i></a>
-</li>
-<li class="nav__link">
-  <a href="/conf"><i class='bx bx-user' ></i></a>
-</li>
-
-
-
-
-</ul>
-</nav>
-<a href="/criarjogo" style="font-size: 40px; padding: 1px 10px; color: #fff; background-color: #C70226; border-radius: 50%; position: fixed; top: 75%; right: 1%;"><i class="bx bx-plus"></i></a>
-<script>
- const links = document.querySelectorAll('.nav__link');
-const light = document.querySelector('.nav__light');
-
-
-/*function moveLight({offsetLeft, offsetWidth}){
-light.style.left = `${offsetLeft - offsetWidth/4}px`;
-}*/
-
-function activeLink(linkActive){
-links.forEach(link => {
-    link.classList.remove('active');
-    linkActive.classList.add('active');
-})
-}
-
-
-links.forEach((link) => {
-link.addEventListener('click', (event) => {
-    moveLight(event.target);
-    activeLink(link);
-})
-})
-</script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/SEU-ID-DO-KIT-FA.js" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/8fdfd8f48b.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
-    </body>
-    </html>
+            <input type="submit" class="btn btn-danger" value="Jogar">
+        </div>
+    </form>
+</div>
+</div>
+    {% endblock  %}
