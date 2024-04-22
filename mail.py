@@ -9,7 +9,7 @@ para = "rfr3233@gmail.com"
 	
 def criarjogo(link_jogo):
     servidor_email = smtplib.SMTP_SSL('smtp.titan.email', 465)
-    corpo = "<h1>Parabens Por Criar Mais 1 Jogos</h1> <p>Use o link abaixo para entrar em seu jogo e compartilhalo</p><a href='"+link_jogo+"'>"+link_jogo+"</a>"
+    corpo = "<h1>Parabens Por Criar Mais 1 Jogos</h1> <p>Use o link abaixo para entrar em seu jogo e compartilha-lo</p><a href='"+link_jogo+"'>"+link_jogo+"</a>"
     servidor_email.login(credenciais.mail, credenciais.senha)
     msg = MIMEMultipart()
     msg['subject'] = "Novo Jogo Criado!!"
