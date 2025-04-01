@@ -11,7 +11,7 @@ import nur
 app = Flask(__name__)
 app.secret_key = 'Ban'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@177.91.85.254:3309/bolada' 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://bolao:6kRidBAhBSktDAdR@177.91.85.150:3306/bolao' 
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
