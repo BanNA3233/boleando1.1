@@ -84,19 +84,6 @@ boleando1.1/
 
 ---
 
-## 🎮 Como Usar
-
-- **Exemplo de uso 1:**  
-  ```bash
-  comando / endpoint / função de exemplo
-  ```
-- **Exemplo de uso 2:**  
-  ```bash
-  outro comando / exemplo prático
-  ```
-
----
-
 ## 🤝 Contribuindo
 
 Quer contribuir com o projeto? Que ótimo! 🛠️
