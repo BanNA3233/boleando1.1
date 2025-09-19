@@ -35,13 +35,6 @@ O projeto tem como objetivo **simplificar processos**, trazer **eficiência** e 
 
 ---
 
-## 🚀 Instalação e Configuração
-
-### Pré-requisitos
-
-- Ter instalado **[linguagem/plataforma]** na versão **X.X** ou superior  
-- Configurar variáveis de ambiente (ver `.env.example` se existir)  
-
 ### Passo a passo
 
 ```bash
