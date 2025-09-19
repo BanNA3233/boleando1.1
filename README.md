@@ -9,7 +9,7 @@
 
 ## 📖 Visão Geral
 
-**Boleando 1.1** é um projeto voltado para [👉 aqui você pode colocar em uma frase o objetivo principal: ex: gerenciamento de partidas, sistema de apostas, automação de escalações ou outro propósito do projeto].
+**Boleando 1.1** é um projeto voltado para um sistema de apostas esportivas entre amigos.
 
 O projeto tem como objetivo **simplificar processos**, trazer **eficiência** e oferecer uma **experiência amigável** para seus usuários.
 
